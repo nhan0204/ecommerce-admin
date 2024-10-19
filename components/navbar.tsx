@@ -5,6 +5,7 @@ import StoreSwithcer from "@/components/store-switcher";
 import { redirect } from "next/navigation";
 import { prismadb } from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs/server";
+import { ThemeToggle } from "./theme-toggle";
 
 interface NavbarProps {}
 
@@ -27,6 +28,7 @@ const Navbar: React.FC<NavbarProps> = async() => {
         <StoreSwithcer items={stores} />
         <MainNav className="mx-8" />
         <div className="ml-auto flex items-center space-x-4">
+          <ThemeToggle/>
           <UserButton />
         </div>
       </div>

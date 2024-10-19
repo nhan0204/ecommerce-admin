@@ -1,9 +1,10 @@
+import { ClerkProvider, RedirectToSignUp, SignedOut } from "@clerk/nextjs";
 import type { Metadata } from "next";
-import { ClerkProvider, RedirectToSignUp, SignedIn, SignedOut } from "@clerk/nextjs";
 
 import { ModalProvider } from "@/providers/modal-provider";
 import { ToastProvider } from "@/providers/toast-provider";
 
+import { ThemeProvider } from "@/components/theme-provider";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -34,12 +35,14 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <ToastProvider />
-          <ModalProvider />
-          {children}
-          <SignedOut>
-            <RedirectToSignUp/>
-          </SignedOut>
+          <ThemeProvider attribute="class" defaultTheme="dark">
+            <ToastProvider />
+            <ModalProvider />
+            {children}
+            <SignedOut>
+              <RedirectToSignUp />
+            </SignedOut>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

@@ -37,6 +37,8 @@ export async function POST(req: Request) {
     .join(", ");
 
   if (event.type === "checkout.session.completed") {
+    console.log("session completed", session?.metadata?.orderId);
+
     const order = await prismadb.order.update({
       where: {
         id: session?.metadata?.orderId,
@@ -50,8 +52,6 @@ export async function POST(req: Request) {
         orderItems: true,
       },
     });
-
-    console.log('Order updated');
 
     const productIds = order.orderItems.map((orderItem) => orderItem.productId);
 
@@ -77,20 +77,22 @@ export async function POST(req: Request) {
         ...product,
         sale: sale,
         quantity: product.quantity - sale!,
-        isArchived: product.quantity === 0,
+        isArchived: ((product.quantity - sale!) === 0),
       };
     });
 
     console.log(data);
 
-    // await prismadb.product.updateMany({
-    //   where: {
-    //     id: {
-    //       in: [...productIds],
-    //     },
-    //   },
-    //   data: {...data},
-    // });
+    await Promise.all(
+      data.map((data) => {
+        return prismadb.product.update({
+          where: { id: data.id },
+          data: data,
+        });
+      })
+    );
+
+    console.log("Products updated");
   }
 
   return new NextResponse(null, {status: 200})

@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import CellAction from "./cell-action";
+import { Check, X } from "lucide-react";
 
 export type OrderColumn = {
   id: string;
@@ -33,5 +33,11 @@ export const columns: ColumnDef<OrderColumn>[] = [
   {
     accessorKey: "isPaid",
     header: "Paid",
+    cell: ({ row }) =>
+      row.original.isPaid ? (
+        <Check size={14} className="text-green-600" />
+      ) : (
+        <X size={14} className="text-red-600" />
+      ),
   },
 ];

@@ -100,6 +100,10 @@ export async function GET(
     const colorId = searchParams.get("colorId") || undefined;
     const sizeId = searchParams.get("sizeId") || undefined;
     const isFeatured = searchParams.get("isFeatured") || undefined;
+    const isArchived = searchParams.get("isArchived") || undefined;
+
+    console.log("isFeatured", isFeatured);
+    console.log("isArchived", isArchived);
 
     const products = await prismadb.product.findMany({
       where: {
@@ -107,7 +111,10 @@ export async function GET(
         categoryId,
         colorId,
         sizeId,
-        isFeatured: isFeatured ? true : undefined,
+        isFeatured:
+          isFeatured !== undefined ? isFeatured === "true" : undefined,
+        isArchived:
+          isArchived !== undefined ? isArchived === "true" : undefined,
       },
       include: {
         images: true,
@@ -116,7 +123,7 @@ export async function GET(
         size: true,
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
     });
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
+import { Check, X } from "lucide-react";
 import CellAction from "./cell-action";
 
 export type ProductColumn = {
@@ -23,14 +24,6 @@ export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: "category",
     header: "Category",
-  },
-  {
-    accessorKey: "isArchived",
-    header: "Archived",
-  },
-  {
-    accessorKey: "isFeatured",
-    header: "Featured",
   },
   {
     accessorKey: "price",
@@ -60,6 +53,26 @@ export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: "createdAt",
     header: "Date",
+  },
+  {
+    accessorKey: "isArchived",
+    header: "Archived",
+    cell: ({ row }) =>
+      row.original.isArchived ? (
+        <Check size={16} className="text-gray-900 font-bold" />
+      ) : (
+        <X size={16} className="text-gray-900 font-bold" />
+      ),
+  },
+  {
+    accessorKey: "isFeatured",
+    header: "Featured",
+    cell: ({ row }) =>
+      row.original.isFeatured ? (
+        <Check size={16} className="text-gray-900 font-bold" />
+      ) : (
+        <X size={16} className="text-gray-900 font-bold" />
+      ),
   },
   {
     accessorKey: "actions",
