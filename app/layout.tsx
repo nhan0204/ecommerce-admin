@@ -6,8 +6,6 @@ import { ToastProvider } from "@/providers/toast-provider";
 
 import localFont from "next/font/local";
 import "./globals.css";
-import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 
 const geistSans = localFont({
   src: "../public/fonts/GeistVF.woff",

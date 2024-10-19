@@ -1,9 +1,9 @@
 import { format } from "date-fns";
 
 import { prismadb } from "@/lib/prismadb";
+import { formatter } from "@/lib/utils";
 import { OrderClient } from "./components/client";
 import { OrderColumn } from "./components/columns";
-import { formatter } from "@/lib/utils";
 
 const OrdersPage = async ({ params }: { params: { storeId: string } }) => {
   const orders = await prismadb.order.findMany({
@@ -26,10 +26,14 @@ const OrdersPage = async ({ params }: { params: { storeId: string } }) => {
     id: item.id,
     phone: item.phone,
     address: item.address,
-    products: item.orderItems.map((orderItem) => orderItem.product.name).join(', '),
-    totalPrice: formatter.format(item.orderItems.reduce((total, item) => {
-      return total + Number(item.product.price)
-    }, 0)),
+    products: item.orderItems
+      .map((orderItem) => orderItem.product.name)
+      .join(", "),
+    totalPrice: formatter.format(
+      item.orderItems.reduce((total, item) => {
+        return total + Number(item.product.price) * item.quantity;
+      }, 0)
+    ),
     isPaid: item.isPaid,
     createdAt: format(item.createdAt, "MMMM do, yyyy"),
   }));

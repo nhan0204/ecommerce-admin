@@ -84,6 +84,7 @@ model Product {
   name  String  
   price Decimal
   quantity  Int
+  sale Int @default(0)
   isFeatured  Boolean @default(false)
   isArchived  Boolean @default(false)
   sizeId  String
@@ -132,6 +133,7 @@ model OrderItem {
   order Order @relation(fields: [orderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   productId String
   product Product @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  quantity Int @default(1)
 
   @@index([orderId])
   @@index([productId])

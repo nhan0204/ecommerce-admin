@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { AlertModal } from "@/components/modals/alert-modal";
+import ApiAlert from "@/components/ui/api-alert";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -21,10 +22,9 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import axios from "axios";
 import toast from "react-hot-toast";
-import ApiAlert from "@/components/ui/api-alert";
 
-import { useParams, useRouter } from "next/navigation";
 import { useOrigin } from "@/hooks/use-origin";
+import { useParams, useRouter } from "next/navigation";
 
 interface SettingsFormProps {
   initialData: Store;
@@ -126,7 +126,17 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
 
       <Separator />
 
-      <ApiAlert title="STORE_PUBLIC_API_URL" description={`${origin}/api/${params.storeId}`} variant="public"/>
+      {/* <ApiAlert
+        title="STORE_PUBLIC_API_URL"
+        description={`${origin}/api/${params.storeId}`}
+        variant="public"
+      /> */}
+
+      {/* <ApiAlert
+        title="STORE_GET_PUBLIC_API_URL"
+        description={`${origin}/api/stores/${params.storeId}`}
+        variant="public"
+      /> */}
     </>
   );
 };
