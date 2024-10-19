@@ -1,5 +1,6 @@
 import { prismadb } from "@/lib/prismadb";
 import { stripe } from "@/lib/stripe";
+import { Product } from "@prisma/client";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -25,7 +26,7 @@ export async function POST(
 
     const productIds = cart.map((item: CartItem) => item.id);
 
-    const products = await prismadb.product.findMany({
+    const products: Product[] = await prismadb.product.findMany({
       where: {
         id: {
           in: productIds,
@@ -78,14 +79,6 @@ export async function POST(
         },
       });
     });
-
-    const orderItems = checkoutProducts.map((product) => ({
-      product: {
-        connect: {
-          id: product.id,
-        },
-      },
-    }));
 
     const order = await prismadb.order.create({
       data: {

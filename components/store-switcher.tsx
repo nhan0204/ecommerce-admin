@@ -14,7 +14,7 @@ import { Store } from "@prisma/client";
 import { PopoverContent } from "@radix-ui/react-popover";
 import { CommandEmpty, CommandSeparator } from "cmdk";
 import { Check, ChevronsUpDown, PlusCircle, Store as StoreIcon } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 
 type PopoverTriggerProps = React.ComponentPropsWithRef<typeof PopoverTrigger>;
@@ -29,7 +29,6 @@ export default function StoreSwitcher({
 }: StoreSwitcherProps) {
   const storeModal = useStoreModal();
   const params = useParams();
-  const router = useRouter();
 
   const formatedItems = items.map((item) => ({
     label: item.name,

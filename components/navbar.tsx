@@ -1,4 +1,4 @@
-import { useAuth, UserButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 import React from "react";
 import { MainNav } from "@/components/main-nav";
 import StoreSwithcer from "@/components/store-switcher";
@@ -7,9 +7,7 @@ import { prismadb } from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs/server";
 import { ThemeToggle } from "./theme-toggle";
 
-interface NavbarProps {}
-
-const Navbar: React.FC<NavbarProps> = async() => {
+const Navbar: React.FC = async() => {
   const { userId } = auth();
 
   if (!userId) {

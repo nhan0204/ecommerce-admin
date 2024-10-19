@@ -5,7 +5,6 @@ import Heading from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { Plus } from "lucide-react";
 
-import ApiList from "@/components/ui/api-list";
 import { DataTable } from "@/components/ui/data-table";
 import { useParams, useRouter } from "next/navigation";
 import React from "react";

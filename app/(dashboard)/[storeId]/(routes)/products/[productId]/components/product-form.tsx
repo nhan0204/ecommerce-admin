@@ -125,6 +125,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
       toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong");
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -141,6 +142,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
       toast.error(
         "Make sure you removed all sized using this billboard first."
       );
+      console.error(error);
     } finally {
       setLoading(false);
       setOpen(false);

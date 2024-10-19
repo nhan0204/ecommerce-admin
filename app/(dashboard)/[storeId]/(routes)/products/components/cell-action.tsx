@@ -40,6 +40,8 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
       toast.success("Product deleted.");
     } catch (error) {
       toast.error("Something went wrong when deleting this product.");
+
+      console.error(error);
     } finally {
       setLoading(false);
       setOpen(false);

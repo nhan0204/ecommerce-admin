@@ -1,7 +1,5 @@
 import Heading from '@/components/ui/heading';
-import { prismadb } from '@/lib/prismadb';
 import React from 'react';
-import { useStoreModal } from '@/hooks/use-store-modal';
 import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CreditCard, DollarSign, Package } from 'lucide-react';
@@ -17,12 +15,6 @@ interface DashboardPageProps {
 }
 
 const DashboardPage: React.FC<DashboardPageProps> = async({ params }) => {
-  const store = await prismadb.store.findFirst({
-    where: {
-      id: params.storeId
-    }
-  });
-
   const totalRevenue = await getTotalRevenue(params.storeId);
   const salesCount = await getSalesCount(params.storeId);
   const stockCount = await getStockCount(params.storeId);

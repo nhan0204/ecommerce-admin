@@ -74,6 +74,7 @@ const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
       toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong");
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -88,6 +89,7 @@ const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
       toast.success("Color deleted.");
     } catch (error) {
       toast.error("Make sure you removed all products using this color first.");
+      console.error(error);
     } finally {
       setLoading(false);
       setOpen(false);

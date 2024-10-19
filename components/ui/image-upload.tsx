@@ -2,7 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { ImagePlus, Trash } from "lucide-react";
-import { CldUploadWidget } from "next-cloudinary";
+import {
+  CldUploadWidget,
+  type CloudinaryUploadWidgetResults,
+} from "next-cloudinary";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -29,8 +32,17 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     return null;
   }
 
-  const onUpload = (result: any) => {
-    onChange(result.info.secure_url);
+  const onUpload = (result: CloudinaryUploadWidgetResults) => {
+    if (typeof result.info === "object" && result.info !== null) {
+      const { secure_url } = result.info; 
+      if (secure_url) {
+        onChange(secure_url); 
+      } else {
+        console.error("secure_url is missing from the upload result.");
+      }
+    } else {
+      console.error("Upload result info is not an object.");
+    }
   };
 
   return (
@@ -64,6 +76,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         <CldUploadWidget
           onSuccess={(result, options) => {
             onUpload(result);
+            console.log(options);
           }}
           uploadPreset="l8xedixc"
         >

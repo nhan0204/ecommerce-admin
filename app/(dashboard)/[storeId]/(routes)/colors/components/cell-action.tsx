@@ -44,6 +44,7 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
       toast.error(
         "Make sure you removed all products using this color first."
       );
+      console.error(error);
     } finally {
       setLoading(false);
       setOpen(false);

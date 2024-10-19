@@ -73,6 +73,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
       toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong");
+      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -91,6 +92,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
       toast.error(
         "Make sure you removed all categories using this billboard first."
       );
+      console.log(error);
     } finally {
       setLoading(false);
       setOpen(false);

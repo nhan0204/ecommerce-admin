@@ -72,6 +72,7 @@ const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
       toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong");
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -88,6 +89,7 @@ const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
       toast.error(
         "Make sure you removed all products using this size first."
       );
+      console.error(error);
     } finally {
       setLoading(false);
       setOpen(false);

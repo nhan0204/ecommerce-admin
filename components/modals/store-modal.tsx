@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 
 import axios from "axios";
@@ -44,6 +44,7 @@ export const StoreModal = () => {
       window.location.assign(`/${response.data.id}`);
     } catch (error) {
       toast.error("Something went wrong!");
+      console.error(error);
     } finally {
       setLoading(false);
       storeModal.onClose();

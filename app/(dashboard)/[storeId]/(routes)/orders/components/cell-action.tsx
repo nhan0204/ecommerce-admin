@@ -1,5 +1,4 @@
 "use client";
-
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import {
@@ -44,6 +43,7 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
       toast.error(
         "Make sure you removed all categories using this billboard first."
       );
+      console.error(error);
     } finally {
       setLoading(false);
       setOpen(false);

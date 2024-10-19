@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { AlertModal } from "@/components/modals/alert-modal";
-import ApiAlert from "@/components/ui/api-alert";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -23,7 +22,6 @@ import { Separator } from "@/components/ui/separator";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-import { useOrigin } from "@/hooks/use-origin";
 import { useParams, useRouter } from "next/navigation";
 
 interface SettingsFormProps {
@@ -39,7 +37,6 @@ type SettingsFormValues = z.infer<typeof formSchema>;
 const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const params = useParams();
   const router = useRouter();
-  const origin = useOrigin();
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -58,6 +55,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       toast.success("Store deleted.");
     } catch (error) {
       toast.error("Make sure you removed all products and categories first.");
+      console.error(error);
     } finally {
       setLoading(false);
       setOpen(false);
@@ -72,6 +70,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       toast.success("Store updated.");
     } catch (error) {
       toast.error("Something went wrong");
+      console.error(error);
     } finally {
       setLoading(false);
     }

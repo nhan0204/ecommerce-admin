@@ -1,5 +1,4 @@
 import Navbar from "@/components/navbar";
-import { useStoreModal } from "@/hooks/use-store-modal";
 import { prismadb } from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";

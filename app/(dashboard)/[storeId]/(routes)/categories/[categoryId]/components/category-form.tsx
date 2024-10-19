@@ -80,6 +80,7 @@ const Caregory: React.FC<CaregoryProps> = ({ initialData, billboards }) => {
       toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong");
+      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -98,6 +99,7 @@ const Caregory: React.FC<CaregoryProps> = ({ initialData, billboards }) => {
       toast.error(
         "Make sure you removed all products using this category first."
       );
+      console.log(error);
     } finally {
       setLoading(false);
       setOpen(false);

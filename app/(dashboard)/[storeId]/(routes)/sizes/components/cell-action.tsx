@@ -44,6 +44,7 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
       toast.error(
         "Make sure you removed all products using this size first."
       );
+      console.error(error);
     } finally {
       setLoading(false);
       setOpen(false);
