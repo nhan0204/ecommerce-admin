@@ -3,6 +3,11 @@ import { format } from "date-fns";
 import { prismadb } from "@/lib/prismadb";
 import { CategoryColumn } from "./components/columns";
 import { CategoryClient } from "./components/client";
+import { Prisma } from "@prisma/client";
+
+type CategoryWithBillboard = Prisma.CategoryGetPayload<{
+  include: { billboard: true };
+}>;
 
 const CategoryPage = async ({ params }: { params: { storeId: string } }) => {
   const categories = await prismadb.category.findMany({
@@ -17,12 +22,14 @@ const CategoryPage = async ({ params }: { params: { storeId: string } }) => {
     },
   });
 
-  const formattedCategories: CategoryColumn[] = categories.map((item) => ({
-    id: item.id,
-    name: item.name,
-    billboardLabel: item.billboard.label,
-    createdAt: format(item.createdAt, "MMMM do, yyyy")
-  }));
+  const formattedCategories: CategoryColumn[] = categories.map(
+    (item: CategoryWithBillboard) => ({
+      id: item.id,
+      name: item.name,
+      billboardLabel: item.billboard.label,
+      createdAt: format(item.createdAt, "MMMM do, yyyy"),
+    })
+  );
 
   return (
     <div className="flex-col">

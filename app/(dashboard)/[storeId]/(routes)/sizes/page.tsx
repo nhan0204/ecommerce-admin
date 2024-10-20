@@ -4,6 +4,8 @@ import { prismadb } from "@/lib/prismadb";
 import { SizeClient } from "./components/client";
 import { SizeColumn } from "./components/columns";
 
+type Size = Awaited<ReturnType<typeof prismadb.size.findMany>>[0];
+
 const SizesPage = async ({ params }: { params: { storeId: string } }) => {
   const sizes = await prismadb.size.findMany({
     where: {
@@ -14,7 +16,7 @@ const SizesPage = async ({ params }: { params: { storeId: string } }) => {
     },
   });
 
-  const formattedSizes: SizeColumn[] = sizes.map((item) => ({
+  const formattedSizes: SizeColumn[] = sizes.map((item: Size) => ({
     id: item.id,
     name: item.name,
     value: item.value,

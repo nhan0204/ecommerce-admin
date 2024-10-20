@@ -1,5 +1,6 @@
 import { prismadb } from "@/lib/prismadb";
 import { stripe } from "@/lib/stripe";
+import { OrderItem, Product } from "@prisma/client";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
@@ -53,10 +54,10 @@ export async function POST(req: Request) {
       },
     });
 
-    const productIds = order.orderItems.map((orderItem) => orderItem.productId);
+    const productIds = order.orderItems.map((orderItem: OrderItem) => orderItem.productId);
 
     const updatedProducts = new Map(
-      order.orderItems.map((orderItem) => [
+      order.orderItems.map((orderItem: OrderItem) => [
         orderItem.productId,
         orderItem.quantity,
       ])
@@ -66,8 +67,12 @@ export async function POST(req: Request) {
       where: { id: { in: productIds } },
     });
 
-    const data = products.map((product) => {
+    const data = products.map((product: Product) => {
       const sale = updatedProducts.get(product.id);
+
+      if (typeof sale === undefined || typeof sale !== 'number') {
+        throw new NextResponse("Invalid order", { status: 400 });
+      }
 
       if (product.quantity < sale!) {
         throw new NextResponse("Invalid order", { status: 400 });
@@ -84,7 +89,7 @@ export async function POST(req: Request) {
     console.log(data);
 
     await Promise.all(
-      data.map((data) => {
+      data.map((data: Product) => {
         return prismadb.product.update({
           where: { id: data.id },
           data: data,
