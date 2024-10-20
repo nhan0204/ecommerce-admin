@@ -1,4 +1,4 @@
-import { prismadb } from "@/lib/prismadb";
+import prismadb from "@/lib/prismadb";
 import React from "react";
 import BillboardForm from "./components/billboard-form";
 

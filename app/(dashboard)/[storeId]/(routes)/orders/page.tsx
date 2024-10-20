@@ -1,16 +1,9 @@
 import { format } from "date-fns";
 
-import { prismadb } from "@/lib/prismadb";
+import prismadb from "@/lib/prismadb";
 import { formatter } from "@/lib/utils";
 import { OrderClient } from "./components/client";
 import { OrderColumn } from "./components/columns";
-import { Prisma } from "@prisma/client";
-
-type OrderItemWithProduct = Prisma.OrderItemGetPayload<{
-  include: { product: true };
-}>;
-
-type OrderWithOrderItems = Awaited<ReturnType<typeof prismadb.order.findMany>>[0];
 
 const OrdersPage = async ({ params }: { params: { storeId: string } }) => {
   const orders = await prismadb.order.findMany({
@@ -30,15 +23,15 @@ const OrdersPage = async ({ params }: { params: { storeId: string } }) => {
   });
 
   const formattedOrders: OrderColumn[] = orders.map(
-    (item: OrderWithOrderItems) => ({
+    (item) => ({
       id: item.id,
       phone: item.phone,
       address: item.address,
       products: item.orderItems
-        .map((orderItem: OrderItemWithProduct) => orderItem.product.name)
+        .map((orderItem) => orderItem.product.name)
         .join(", "),
       totalPrice: formatter.format(
-        item.orderItems.reduce((total: number, item: OrderItemWithProduct) => {
+        item.orderItems.reduce((total: number, item) => {
           return total + Number(item.product.price) * item.quantity;
         }, 0)
       ),

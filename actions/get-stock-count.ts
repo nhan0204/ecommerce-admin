@@ -1,4 +1,4 @@
-import { prismadb } from "@/lib/prismadb";
+import prismadb from "@/lib/prismadb";
 import { Product } from "@prisma/client";
 
 export const getStockCount = async (storeId: string) => {

@@ -3,7 +3,7 @@ import React from "react";
 import { MainNav } from "@/components/main-nav";
 import StoreSwithcer from "@/components/store-switcher";
 import { redirect } from "next/navigation";
-import { prismadb } from "@/lib/prismadb";
+import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs/server";
 import { ThemeToggle } from "./theme-toggle";
 

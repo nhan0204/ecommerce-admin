@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 
-import { prismadb } from "@/lib/prismadb";
+import prismadb from "@/lib/prismadb";
 import { CategoryColumn } from "./components/columns";
 import { CategoryClient } from "./components/client";
 import { Prisma } from "@prisma/client";
