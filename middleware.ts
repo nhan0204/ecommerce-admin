@@ -2,6 +2,7 @@ import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 export default clerkMiddleware((auth, req) => {
+  console.log(auth, req);
   const res = NextResponse.next();
   res.headers.set("Access-Control-Allow-Origin", "*"); // Or specify your frontend origin
   res.headers.set(
