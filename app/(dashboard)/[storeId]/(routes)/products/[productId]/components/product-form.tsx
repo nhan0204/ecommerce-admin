@@ -100,6 +100,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
   });
 
   const onImageUpload = (url: string) => {
+    console.log(url); 
     setUploadedImages((prevImages) => {
       const updatedImages = [...prevImages, { url }];
       form.setValue("images", updatedImages);
@@ -124,8 +125,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
       router.refresh();
       toast.success(toastMessage);
     } catch (error) {
-      toast.error("Something went wrong");
-      console.error(error);
+      toast.error(`Something went wrong\n${error}`);
     } finally {
       setLoading(false);
     }
@@ -140,9 +140,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
       toast.success("Product deleted.");
     } catch (error) {
       toast.error(
-        "Make sure you removed all sized using this billboard first."
+        `Make sure you removed all sized using this billboard first.\n${error}`
       );
-      console.error(error);
     } finally {
       setLoading(false);
       setOpen(false);

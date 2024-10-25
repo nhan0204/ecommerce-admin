@@ -42,9 +42,8 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
       toast.success("Billboard deleted.");
     } catch (error) {
       toast.error(
-        "Make sure you removed all categories using this billboard first."
+        `Make sure you removed all categories using this billboard first.\n${error}`
       );
-      console.log(error);
     } finally {
       setLoading(false);
       setOpen(false);

@@ -9,6 +9,8 @@ export async function POST(req: Request) {
   const body = await req.text();
   const signature = headers().get("Stripe-Signature") as string;
 
+  console.log("Webhook request:", req);
+
   let event: Stripe.Event;
 
   try {
@@ -54,7 +56,9 @@ export async function POST(req: Request) {
       },
     });
 
-    const productIds = order.orderItems.map((orderItem: OrderItem) => orderItem.productId);
+    const productIds = order.orderItems.map(
+      (orderItem: OrderItem) => orderItem.productId
+    );
 
     const updatedProducts = new Map(
       order.orderItems.map((orderItem: OrderItem) => [
@@ -70,7 +74,7 @@ export async function POST(req: Request) {
     const data = products.map((product: Product) => {
       const sale = updatedProducts.get(product.id);
 
-      if (typeof sale === undefined || typeof sale !== 'number') {
+      if (typeof sale === undefined || typeof sale !== "number") {
         throw new NextResponse("Invalid order", { status: 400 });
       }
 
@@ -82,7 +86,7 @@ export async function POST(req: Request) {
         ...product,
         sale: sale,
         quantity: product.quantity - sale!,
-        isArchived: ((product.quantity - sale!) === 0),
+        isArchived: product.quantity - sale! === 0,
       };
     });
 
@@ -100,5 +104,5 @@ export async function POST(req: Request) {
     console.log("Products updated");
   }
 
-  return new NextResponse(null, {status: 200})
+  return new NextResponse(null, { status: 200 });
 }

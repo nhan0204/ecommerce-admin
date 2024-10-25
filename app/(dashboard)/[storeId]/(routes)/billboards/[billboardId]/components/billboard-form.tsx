@@ -72,8 +72,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
       router.refresh();
       toast.success(toastMessage);
     } catch (error) {
-      toast.error("Something went wrong");
-      console.log(error);
+      toast.error(`Something went wrong.\n${error}`);
     } finally {
       setLoading(false);
     }
@@ -90,9 +89,8 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
       toast.success("Billboard deleted.");
     } catch (error) {
       toast.error(
-        "Make sure you removed all categories using this billboard first."
+        `Make sure you removed all categories using this billboard first.\n${error}`
       );
-      console.log(error);
     } finally {
       setLoading(false);
       setOpen(false);

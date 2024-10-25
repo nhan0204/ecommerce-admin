@@ -71,8 +71,7 @@ const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
       router.refresh();
       toast.success(toastMessage);
     } catch (error) {
-      toast.error("Something went wrong");
-      console.error(error);
+      toast.error(`Something went wrong\n${error}`);
     } finally {
       setLoading(false);
     }

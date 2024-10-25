@@ -22,6 +22,7 @@ import { Separator } from "@/components/ui/separator";
 import axios from "axios";
 import toast from "react-hot-toast";
 
+import ApiAlert from "@/components/ui/api-alert";
 import { useParams, useRouter } from "next/navigation";
 
 interface SettingsFormProps {
@@ -69,8 +70,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       router.refresh();
       toast.success("Store updated.");
     } catch (error) {
-      toast.error("Something went wrong");
-      console.error(error);
+      toast.error(`Something went wrong ${error}`);
     } finally {
       setLoading(false);
     }
@@ -125,17 +125,17 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
 
       <Separator />
 
-      {/* <ApiAlert
-        title="STORE_PUBLIC_API_URL"
+      <ApiAlert
+        title="NEXT_PUBLIC_API_URL"
         description={`${origin}/api/${params.storeId}`}
         variant="public"
-      /> */}
+      />
 
-      {/* <ApiAlert
+      <ApiAlert
         title="STORE_GET_PUBLIC_API_URL"
         description={`${origin}/api/stores/${params.storeId}`}
         variant="public"
-      /> */}
+      />
     </>
   );
 };

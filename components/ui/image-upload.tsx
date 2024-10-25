@@ -34,9 +34,9 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
   const onUpload = (result: CloudinaryUploadWidgetResults) => {
     if (typeof result.info === "object" && result.info !== null) {
-      const { secure_url } = result.info; 
+      const { secure_url } = result.info;
       if (secure_url) {
-        onChange(secure_url); 
+        onChange(secure_url);
       } else {
         console.error("secure_url is missing from the upload result.");
       }

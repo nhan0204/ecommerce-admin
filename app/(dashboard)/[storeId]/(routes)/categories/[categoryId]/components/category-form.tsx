@@ -79,8 +79,7 @@ const Caregory: React.FC<CaregoryProps> = ({ initialData, billboards }) => {
       router.refresh();
       toast.success(toastMessage);
     } catch (error) {
-      toast.error("Something went wrong");
-      console.log(error);
+      toast.error(`Something went wrong ${error}`);
     } finally {
       setLoading(false);
     }
@@ -97,9 +96,8 @@ const Caregory: React.FC<CaregoryProps> = ({ initialData, billboards }) => {
       toast.success("Category deleted.");
     } catch (error) {
       toast.error(
-        "Make sure you removed all products using this category first."
+        `Make sure you removed all products using this category first.\n${error}`
       );
-      console.log(error);
     } finally {
       setLoading(false);
       setOpen(false);
