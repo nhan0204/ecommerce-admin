@@ -38,10 +38,6 @@ export default function RootLayout({
       }}
     >
       <html lang="en">
-        <head>
-          <title>Ecommerce Admin</title>
-          <meta name="description" content="" />
-        </head>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
