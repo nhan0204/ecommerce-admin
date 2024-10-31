@@ -19,15 +19,41 @@ export async function POST(req: Request) {
     const store = await prismadb.store.create({
       data: {
         name,
-        UserId: userId
-      }
+        UserId: userId,
+      },
     });
 
     return NextResponse.json(store);
-
   } catch (error) {
     console.log("[STORES_POST", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
 
+export async function GET(
+  req: Request,
+  { params }: { params: { name: string } }
+) {
+  try {
+    const { userId } = auth();
+
+    if (!userId) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const store = await prismadb.store.findFirst({
+      where: {
+        name: params.name,
+      },
+    });
+
+    if (!store) {
+      return new NextResponse("Store not found", { status: 404 });
+    }
+
+    return NextResponse.json(store);
+  } catch (error) {
+    console.log("[STORES_GET", error);
+    return new NextResponse("Internal error", { status: 500 });
+  }
+}
