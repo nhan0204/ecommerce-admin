@@ -32,7 +32,6 @@ export async function POST(req: Request) {
 
 export async function GET(
   req: Request,
-  { params }: { params: { name: string } }
 ) {
   try {
     const { userId } = auth();
@@ -41,9 +40,13 @@ export async function GET(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    const url = new URL(req.url);
+    const queryParams = Object.fromEntries(url.searchParams);
+    const name = queryParams.name;
+
     const store = await prismadb.store.findFirst({
       where: {
-        name: params.name,
+        name: name,
       },
     });
 
