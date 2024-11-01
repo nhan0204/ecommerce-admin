@@ -26,6 +26,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
   useEffect(() => {
     setIsMounted(true);
+    console.log('images: ',value);
   }, [value]);
 
   if (!isMounted) {
@@ -74,10 +75,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           ))}
         </div>
         <CldUploadWidget
-          onSuccess={(result, options) => {
-            onUpload(result);
-            console.log(options);
-          }}
+          onSuccess={(result) => onUpload(result)}
           uploadPreset="l8xedixc"
         >
           {({ open }) => {

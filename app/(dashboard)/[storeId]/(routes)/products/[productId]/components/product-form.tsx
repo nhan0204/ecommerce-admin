@@ -1,7 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trash } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -71,7 +71,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [uploadedImages, setUploadedImages] = useState<{ url: string }[]>([]);
 
   const title = initialData ? "Edit product" : "Create product";
   const description = initialData ? "Edit product" : "Add a new product";
@@ -99,14 +98,16 @@ const ProductForm: React.FC<ProductFormProps> = ({
         },
   });
 
-  const onImageUpload = (url: string) => {
-    console.log(url); 
-    setUploadedImages((prevImages) => {
-      const updatedImages = [...prevImages, { url }];
-      form.setValue("images", updatedImages);
-      return updatedImages;
-    });
-  };
+  const onUploadImage = (url: string) => {
+    const storedImages = localStorage.getItem("uploadedImages");
+    const uploadedImages = storedImages ? JSON.parse(storedImages) : [];
+    const updatedImages = [...uploadedImages, { url }];
+
+    console.log("New images: ", updatedImages);
+
+    localStorage.setItem("uploadedImages", JSON.stringify(updatedImages));
+    return updatedImages;
+  }
 
   const onSubmit = async (data: ProductFormValues) => {
     try {
@@ -148,6 +149,10 @@ const ProductForm: React.FC<ProductFormProps> = ({
     }
   };
 
+  useEffect(() => {
+    localStorage.removeItem("uploadedImages");
+  }, []);
+
   return (
     <>
       <AlertModal
@@ -187,8 +192,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
                     value={field.value.map((image) => image.url)}
                     disabled={loading}
                     onChange={(url) => {
-                      onImageUpload(url);
-                      field.onChange(uploadedImages);
+                      const updatedImages = onUploadImage(url);
+                      field.onChange(updatedImages);
                     }}
                     onRemove={(url) =>
                       field.onChange([
