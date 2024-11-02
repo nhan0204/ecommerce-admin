@@ -25,21 +25,13 @@ export async function POST(req: Request) {
 
     return NextResponse.json(store);
   } catch (error) {
-    console.log("[STORES_POST", error);
+    console.log("[STORES_POST]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
 
-export async function GET(
-  req: Request,
-) {
+export async function GET(req: Request) {
   try {
-    const { userId } = auth();
-
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-
     const url = new URL(req.url);
     const queryParams = Object.fromEntries(url.searchParams);
     const name = queryParams.name;
@@ -56,7 +48,7 @@ export async function GET(
 
     return NextResponse.json(store);
   } catch (error) {
-    console.log("[STORES_GET", error);
+    console.log("[STORES_GET]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
