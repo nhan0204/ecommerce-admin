@@ -31,6 +31,7 @@ model Billboard {
   categories Category[] 
   createdAt DateTime @default(now())
   updated DateTime  @updatedAt
+  isHomePage Boolean @default(false)
 
   @@index([storeId])
 }

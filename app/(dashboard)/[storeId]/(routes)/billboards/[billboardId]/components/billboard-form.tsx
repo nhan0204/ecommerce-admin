@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -19,6 +20,7 @@ import {
 import Heading from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -28,6 +30,7 @@ import { useParams, useRouter } from "next/navigation";
 const formSchema = z.object({
   label: z.string().min(1),
   imageUrl: z.string().min(1),
+  isHomePage: z.boolean().default(false).optional(),
 });
 
 type BillboardFormValues = z.infer<typeof formSchema>;
@@ -58,6 +61,8 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
   const onSubmit = async (data: BillboardFormValues) => {
     try {
       setLoading(true);
+
+      console.log('Billboards: ',data);
 
       if (initialData) {
         await axios.patch(
@@ -146,7 +151,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
             )}
           />
 
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 max-w-sm gap-8">
             <FormField
               control={form.control}
               name="label"
@@ -161,6 +166,28 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
                     ></Input>
                   </FormControl>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="isHomePage"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>Home Page</FormLabel>
+                    <FormDescription>
+                      This billboard will appear on Home page
+                    </FormDescription>
+                  </div>
                 </FormItem>
               )}
             />

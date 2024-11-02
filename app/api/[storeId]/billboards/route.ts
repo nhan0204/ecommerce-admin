@@ -9,7 +9,7 @@ export async function POST(
   try {
     const { userId } = auth();
     const body = await req.json();
-    const { label, imageUrl } = body;
+    const { label, imageUrl, isHomePage } = body;
 
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
@@ -40,9 +40,10 @@ export async function POST(
 
     const billboard = await prismadb.billboard.create({
       data: {
+        storeId: params.storeId,
         label,
         imageUrl,
-        storeId: params.storeId,
+        isHomePage,
       },
     });
 
@@ -58,9 +59,14 @@ export async function GET(
   { params }: { params: { storeId: string } }
 ) {
   try {
+    const {searchParams} = new URL(req.url);
+    const isHomePage = searchParams.get("isHomePage") || undefined;
+
     const billboards = await prismadb.billboard.findMany({
       where: {
         storeId: params.storeId,
+        isHomePage: 
+          isHomePage !== undefined ? isHomePage === "true" : undefined
       },
     });
 

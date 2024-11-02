@@ -102,9 +102,6 @@ export async function GET(
     const isFeatured = searchParams.get("isFeatured") || undefined;
     const isArchived = searchParams.get("isArchived") || undefined;
 
-    console.log("isFeatured", isFeatured);
-    console.log("isArchived", isArchived);
-
     const products = await prismadb.product.findMany({
       where: {
         storeId: params.storeId,
