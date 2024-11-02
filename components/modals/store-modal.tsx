@@ -19,6 +19,7 @@ import { toast } from "react-hot-toast";
 
 import axios from "axios";
 
+import { deployStorePage } from "@/actions/deploy-store-page";
 import * as z from "zod";
 
 const fromSchema = z.object({
@@ -35,13 +36,18 @@ export const StoreModal = () => {
       name: "",
     },
   });
-  
+
   const onSubmit = async (values: z.infer<typeof fromSchema>) => {
     try {
       setLoading(true);
       const response = await axios.post("/api/stores", values);
-      // refresh the whole page to fix disynchronus in between database
+
+      // Refresh the whole page to fix desynchronus in between database
       window.location.assign(`/${response.data.id}`);
+
+      // Deploying new StorePage
+      const deploy = await deployStorePage(response.data.id);
+      console.log("Deploying", deploy);
     } catch (error) {
       toast.error("Something went wrong!");
       console.error(error);
