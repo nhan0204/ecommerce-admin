@@ -1,4 +1,3 @@
-import axios from "axios";
 import toast from "react-hot-toast";
 
 const deployHook = process.env.NEXT_PUBLIC_STORE_DEPLOY_HOOK;
@@ -9,10 +8,12 @@ export const deployStorePage = async (storeId: string) => {
       return "Deploy hook undefined";
     }
 
-    const res = await axios.post(deployHook, null, {
-      params: {
-        storeId: storeId,
+    const res = await fetch(deployHook, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
       },
+      body: JSON.stringify({ storeId }),
     });
 
     toast.success(`Start deploying ${storeId}`);
