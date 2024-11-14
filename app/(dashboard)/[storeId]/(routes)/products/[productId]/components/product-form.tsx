@@ -45,6 +45,7 @@ const formSchema = z.object({
   sizeId: z.string().min(1),
   isFeatured: z.boolean().default(false).optional(),
   isArchived: z.boolean().default(false).optional(),
+  isHorizontal: z.boolean().default(false).optional(),
 });
 
 type ProductFormValues = z.infer<typeof formSchema>;
@@ -95,6 +96,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
           sizeId: "",
           isFeatured: false,
           isArchived: false,
+          isHorizontal: false,
         },
   });
 
@@ -404,6 +406,28 @@ const ProductForm: React.FC<ProductFormProps> = ({
                     <FormLabel>Archived</FormLabel>
                     <FormDescription>
                       This product will not appear anywhere in the store
+                    </FormDescription>
+                  </div>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="isHorizontal"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>Horizontal</FormLabel>
+                    <FormDescription>
+                      This product will display horizontally
                     </FormDescription>
                   </div>
                 </FormItem>

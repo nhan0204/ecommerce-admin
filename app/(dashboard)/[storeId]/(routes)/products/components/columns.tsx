@@ -12,6 +12,7 @@ export type ProductColumn = {
   color: string;
   isFeatured: boolean;
   isArchived: boolean;
+  isHorizontal: boolean;
   createdAt: string;
   category: string;
 };
@@ -69,6 +70,16 @@ export const columns: ColumnDef<ProductColumn>[] = [
     header: "Featured",
     cell: ({ row }) =>
       row.original.isFeatured ? (
+        <Check size={16} className="text-gray-900 font-bold" />
+      ) : (
+        <X size={16} className="text-gray-900 font-bold" />
+      ),
+  },
+  {
+    accessorKey: "isHorizontal",
+    header: "Horizontal",
+    cell: ({ row }) =>
+      row.original.isHorizontal ? (
         <Check size={16} className="text-gray-900 font-bold" />
       ) : (
         <X size={16} className="text-gray-900 font-bold" />

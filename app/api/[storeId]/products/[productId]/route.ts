@@ -48,6 +48,7 @@ export async function PATCH(
       images,
       isFeatured,
       isArchived,
+      isHorizontal,
     } = body;
 
     if (!params.productId) {
@@ -113,6 +114,7 @@ export async function PATCH(
         },
         isArchived,
         isFeatured,
+        isHorizontal,
       },
     });
 

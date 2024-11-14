@@ -25,6 +25,7 @@ const ProductsPage = async ({ params }: { params: { storeId: string } }) => {
     name: item.name,
     isFeatured: item.isFeatured,
     isArchived: item.isArchived,
+    isHorizontal: item.isHorizontal,
     price: formatter.format(item.price.toNumber()),
     category: item.category.name,
     size: item.size.name,

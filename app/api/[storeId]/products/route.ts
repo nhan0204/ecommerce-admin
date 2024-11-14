@@ -19,6 +19,7 @@ export async function POST(
       images,
       isFeatured,
       isArchived,
+      isHorizontal,
     } = body;
 
     if (!userId) {
@@ -75,6 +76,7 @@ export async function POST(
         colorId,
         isArchived,
         isFeatured,
+        isHorizontal,
         images: {
           createMany: {
             data: [...images.map((image: { url: string }) => image)],
@@ -101,6 +103,7 @@ export async function GET(
     const sizeId = searchParams.get("sizeId") || undefined;
     const isFeatured = searchParams.get("isFeatured") || undefined;
     const isArchived = searchParams.get("isArchived") || undefined;
+    const isHorizontal = searchParams.get("isArchived") || undefined;
 
     const products = await prismadb.product.findMany({
       where: {
@@ -112,6 +115,8 @@ export async function GET(
           isFeatured !== undefined ? isFeatured === "true" : undefined,
         isArchived:
           isArchived !== undefined ? isArchived === "true" : undefined,
+        isHorizontal:
+          isHorizontal !== undefined ? isHorizontal === "true" : undefined,
       },
       include: {
         images: true,
