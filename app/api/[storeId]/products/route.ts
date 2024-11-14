@@ -103,7 +103,7 @@ export async function GET(
     const sizeId = searchParams.get("sizeId") || undefined;
     const isFeatured = searchParams.get("isFeatured") || undefined;
     const isArchived = searchParams.get("isArchived") || undefined;
-    const isHorizontal = searchParams.get("isArchived") || undefined;
+    const isHorizontal = searchParams.get("isHorizontal") || undefined;
 
     const products = await prismadb.product.findMany({
       where: {
