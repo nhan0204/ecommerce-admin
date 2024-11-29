@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+import { AlertModal } from "@/components/modals/alert-modal";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,12 +8,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
+import axios from "axios";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { OrderColumn } from "./columns";
-import { AlertModal } from "@/components/modals/alert-modal";
 
 interface CellActionProps {
   data: OrderColumn;
@@ -35,13 +35,13 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
     try {
       setLoading(true);
       await axios.delete(
-        `/api/${params.storeId}/Orders/${data.id}`
+        `/api/${params.storeId}/orders/${data.id}`
       );
       router.refresh();
-      toast.success("Billboard deleted.");
+      toast.success("Order deleted.");
     } catch (error) {
       toast.error(
-        `Make sure you removed all categories using this billboard first.\n${error}`
+        `Make sure you removed all categories using this order item first.\n${error}`
       );
     } finally {
       setLoading(false);
@@ -75,7 +75,7 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/${params.storeId}/billboards/${data.id}`)
+              router.push(`/${params.storeId}/orders/${data.id}`)
             }
           >
             <Edit className="mr-2 h-4 w-4" />

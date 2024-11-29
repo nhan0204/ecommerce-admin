@@ -48,7 +48,7 @@ model Category {
   storeId String
   store Store @relation("StoreToCategory", fields: [storeId], references: [id])
   billboardId String
-  billboard Billboard @relation(fields: [billboardId], references: [id], onDelete: NoAction, onUpdate: NoAction)  
+  billboard Billboard @relation(fields: [billboardId], references: [id], onDelete: Cascade, onUpdate: NoAction)  
   products  Product[] @relation("CategoryToProduct")
   name  String
   createdAt DateTime @default(now())
@@ -87,9 +87,9 @@ model Color {
 model Product {
   id  String  @id @default(uuid())
   storeId String
-  store Store @relation("StoreToProduct", fields: [storeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  store Store @relation("StoreToProduct", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   categoryId  String
-  category  Category  @relation("CategoryToProduct", fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)  
+  category  Category  @relation("CategoryToProduct", fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: NoAction)  
   modal String @unique
   name  String  
   price Decimal
@@ -99,7 +99,7 @@ model Product {
   isArchived  Boolean @default(false)
   isHorizontal Boolean @default(false)
   sizeId  String
-  size  Size  @relation(fields: [sizeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  size  Size  @relation(fields: [sizeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   colorId String
   color Color @relation(fields: [colorId], references: [id])
   images Image[]
@@ -141,9 +141,9 @@ model Order {
 model OrderItem {
   id  String  @id @default(uuid())
   orderId String
-  order Order @relation(fields: [orderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   productId String
-  product Product @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   quantity Int @default(1)
 
   @@index([orderId])

@@ -8,6 +8,7 @@ import * as z from "zod";
 
 import { AlertModal } from "@/components/modals/alert-modal";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -20,7 +21,6 @@ import {
 import Heading from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Checkbox } from "@/components/ui/checkbox";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -65,12 +65,12 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
       console.log('Billboards: ',data);
 
       if (initialData) {
-        await axios.patch(
+        await axios.patch( // Update existed item
           `/api/${params.storeId}/billboards/${params.billboardId}`,
           data
         );
       } else {
-        await axios.post(`/api/${params.storeId}/billboards`, data);
+        await axios.post(`/api/${params.storeId}/billboards`, data); // Create new item
       }
 
       router.push(`/${params.storeId}/billboards`);

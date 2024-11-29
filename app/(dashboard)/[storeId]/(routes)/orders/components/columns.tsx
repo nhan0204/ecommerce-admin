@@ -2,6 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Check, X } from "lucide-react";
+import CellAction from "./cell-action";
 
 export type OrderColumn = {
   id: string;
@@ -43,5 +44,10 @@ export const columns: ColumnDef<OrderColumn>[] = [
       ) : (
         <X size={14} className="text-red-600" />
       ),
+  },
+  {
+    accessorKey: "actions",
+    header: "Action",
+    cell: ({ row }) => <CellAction data={row.original} />,
   },
 ];
