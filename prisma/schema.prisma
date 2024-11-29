@@ -2,11 +2,18 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// Vercel Server
 datasource db {
   provider = "postgresql"
   url      = env("POSTGRES_PRISMA_URL")
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
+
+// Local server
+// datasource db {
+//   provider = "sqlserver"
+//   url = env("MSSQL_PRISMA_URL")
+// }
 
 model Store {
   id  String  @id @default(uuid())
@@ -83,6 +90,7 @@ model Product {
   store Store @relation("StoreToProduct", fields: [storeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   categoryId  String
   category  Category  @relation("CategoryToProduct", fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)  
+  modal String @unique
   name  String  
   price Decimal
   quantity  Int

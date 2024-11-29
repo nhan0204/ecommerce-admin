@@ -37,6 +37,7 @@ import { Category, Color, Image, Product, Size } from "@prisma/client";
 
 const formSchema = z.object({
   name: z.string().min(1),
+  modal: z.string().min(1),
   images: z.object({ url: z.string() }).array().min(1),
   price: z.coerce.number().min(1),
   quantity: z.coerce.number().min(1),
@@ -88,6 +89,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
         }
       : {
           name: "",
+          modal: "",
           images: [],
           price: 0,
           quantity: 0,
@@ -220,6 +222,24 @@ const ProductForm: React.FC<ProductFormProps> = ({
                     <Input
                       disabled={loading}
                       placeholder="Product Name"
+                      {...field}
+                    ></Input>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="modal"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="font-semibold">Modal</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder="Product Modal"
                       {...field}
                     ></Input>
                   </FormControl>

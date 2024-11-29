@@ -11,6 +11,7 @@ export async function POST(
     const body = await req.json();
     const {
       name,
+      modal,
       price,
       quantity,
       categoryId,
@@ -69,6 +70,7 @@ export async function POST(
       data: {
         storeId: params.storeId,
         name,
+        modal,
         price,
         quantity,
         categoryId,
