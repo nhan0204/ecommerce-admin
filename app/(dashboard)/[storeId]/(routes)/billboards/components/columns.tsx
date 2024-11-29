@@ -9,6 +9,8 @@ export type BillboardColumn = {
   label: string;
   createdAt: string;
   isHomePage: boolean;
+  isDarkLabel: boolean;
+  hasLabel: boolean;
 };
 
 export const columns: ColumnDef<BillboardColumn>[] = [
@@ -23,7 +25,17 @@ export const columns: ColumnDef<BillboardColumn>[] = [
   {
     accessorKey: "isHomePage",
     header: "HomePage",
-    cell: ({ row }) => <ActiveCell isActive={row.original.isHomePage}/>
+    cell: ({ row }) => <ActiveCell isActive={row.original.isHomePage} />
+  },
+  {
+    accessorKey: "isDarkLabel",
+    header: "DarkLabel",
+    cell: ({ row }) => <ActiveCell isActive={row.original.isDarkLabel} />
+  },
+  {
+    accessorKey: "hasLabel",
+    header: "HasLabel",
+    cell: ({ row }) => <ActiveCell isActive={row.original.hasLabel} />
   },
   {
     accessorKey: "actions",

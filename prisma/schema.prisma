@@ -39,6 +39,8 @@ model Billboard {
   createdAt DateTime @default(now())
   updated DateTime  @updatedAt
   isHomePage Boolean @default(false)
+  isDarkLabel Boolean @default(false)
+  hasLabel Boolean @default(true)
 
   @@index([storeId])
 }

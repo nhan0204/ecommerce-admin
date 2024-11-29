@@ -29,7 +29,7 @@ export async function PATCH(
     const { userId } = auth();
     const body = await req.json();
 
-    const { label, imageUrl, isHomePage } = body;
+    const { label, imageUrl, isHomePage, isDarkLabel, hasLabel } = body;
 
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
@@ -66,6 +66,8 @@ export async function PATCH(
         label,
         imageUrl,
         isHomePage,
+        isDarkLabel,
+        hasLabel,
       },
     });
 

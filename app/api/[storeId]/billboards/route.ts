@@ -9,7 +9,7 @@ export async function POST(
   try {
     const { userId } = auth();
     const body = await req.json();
-    const { label, imageUrl, isHomePage } = body;
+    const { label, imageUrl, isHomePage, isDarkLabel, hasLabel } = body;
 
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
@@ -44,6 +44,8 @@ export async function POST(
         label,
         imageUrl,
         isHomePage,
+        isDarkLabel,
+        hasLabel,
       },
     });
 
@@ -61,12 +63,18 @@ export async function GET(
   try {
     const {searchParams} = new URL(req.url);
     const isHomePage = searchParams.get("isHomePage") || undefined;
+    const isDarkLabel = searchParams.get("isDarkLabel") || undefined;
+    const hasLabel = searchParams.get("isDarkLabel") || undefined;
 
     const billboards = await prismadb.billboard.findMany({
       where: {
         storeId: params.storeId,
-        isHomePage: 
-          isHomePage !== undefined ? isHomePage === "true" : undefined
+        isHomePage:
+          isHomePage !== undefined ? isHomePage === "true" : undefined,
+        isDarkLabel:
+          isDarkLabel !== undefined ? isDarkLabel === "true" : undefined,
+        hasLabel:
+          hasLabel !== undefined ? hasLabel === "true" : undefined,
       },
     });
 

@@ -31,6 +31,8 @@ const formSchema = z.object({
   label: z.string().min(1),
   imageUrl: z.string().min(1),
   isHomePage: z.boolean().default(false).optional(),
+  isDarkLabel: z.boolean().default(false).optional(),
+  hasLabel: z.boolean().default(false).optional(),
 });
 
 type BillboardFormValues = z.infer<typeof formSchema>;
@@ -191,7 +193,52 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="hasLabel"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>Has Label</FormLabel>
+                    <FormDescription>
+                      This billboard will have a label
+                    </FormDescription>
+                  </div>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="isDarkLabel"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>Dark Label</FormLabel>
+                    <FormDescription>
+                      This billboard will have a dark label
+                    </FormDescription>
+                  </div>
+                </FormItem>
+              )}
+            />
           </div>
+
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}
           </Button>
