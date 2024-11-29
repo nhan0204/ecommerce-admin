@@ -1,7 +1,7 @@
 "use client";
 
+import ActiveCell from "@/components/active-cell";
 import { ColumnDef } from "@tanstack/react-table";
-import { Check, X } from "lucide-react";
 import CellAction from "./cell-action";
 
 export type ProductColumn = {
@@ -58,32 +58,17 @@ export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: "isArchived",
     header: "Archived",
-    cell: ({ row }) =>
-      row.original.isArchived ? (
-        <Check size={16} className="text-gray-900 font-bold" />
-      ) : (
-        <X size={16} className="text-gray-900 font-bold" />
-      ),
+    cell: ({ row }) => <ActiveCell isActive={row.original.isArchived} />
   },
   {
     accessorKey: "isFeatured",
     header: "Featured",
-    cell: ({ row }) =>
-      row.original.isFeatured ? (
-        <Check size={16} className="text-gray-900 font-bold" />
-      ) : (
-        <X size={16} className="text-gray-900 font-bold" />
-      ),
+    cell: ({ row }) => <ActiveCell isActive={row.original.isFeatured} />
   },
   {
     accessorKey: "isHorizontal",
     header: "Horizontal",
-    cell: ({ row }) =>
-      row.original.isHorizontal ? (
-        <Check size={16} className="text-gray-900 font-bold" />
-      ) : (
-        <X size={16} className="text-gray-900 font-bold" />
-      ),
+    cell: ({ row }) => <ActiveCell isActive={row.original.isHorizontal} />
   },
   {
     accessorKey: "actions",

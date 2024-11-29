@@ -2,13 +2,13 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import CellAction from "./cell-action";
-import { Check, X } from "lucide-react";
+import ActiveCell from "@/components/active-cell";
 
 export type BillboardColumn = {
   id: string;
   label: string;
   createdAt: string;
-  isHomePage: boolean,
+  isHomePage: boolean;
 };
 
 export const columns: ColumnDef<BillboardColumn>[] = [
@@ -23,16 +23,11 @@ export const columns: ColumnDef<BillboardColumn>[] = [
   {
     accessorKey: "isHomePage",
     header: "HomePage",
-    cell: ({row}) => 
-      row.original.isHomePage ? (
-        <Check size={16} className="text-gray-900 font-bold" />
-      ) : (
-        <X size={16} className="text-gray-900 font-bold" />
-      ),
+    cell: ({ row }) => <ActiveCell isActive={row.original.isHomePage}/>
   },
   {
     accessorKey: "actions",
     header: "Action",
-    cell: ({ row }) => <CellAction data={row.original}/>,
+    cell: ({ row }) => <CellAction data={row.original} />,
   },
 ];
