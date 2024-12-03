@@ -91,7 +91,7 @@ export async function POST(
                 id: product.id,
               },
             },
-            quantity: product.cart
+            quantity: product.cart,
           })),
         },
       },
@@ -111,7 +111,7 @@ export async function POST(
 
     return NextResponse.json({ url: session.url });
   } catch (error) {
-    console.log("[CART_POST", error);
+    console.log("[CART_POST]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
