@@ -1,4 +1,4 @@
-import prismadb  from "@/lib/prismadb";
+import prismadb from "@/lib/prismadb";
 
 interface GraphData {
   name: string;
@@ -44,7 +44,7 @@ export const getGraphRevenue = async (storeId: string) => {
   ];
 
   for (const day in dailyRevenue) {
-    graphData[parseInt(day) - 1].total = dailyRevenue[parseInt(day)];
+    graphData[parseInt(day)].total = dailyRevenue[parseInt(day)];
   }
 
   return graphData;
